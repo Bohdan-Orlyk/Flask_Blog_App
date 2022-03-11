@@ -8,14 +8,17 @@
     <div class="container">
         <h1>All articles</h1>
 
-        {% for el in articles %}
-        <div class="alert-info mt-2 p-2 rounded">
-            <h2>Title: {{ el.title }}</h2>
-            <p>Intro: {{ el.intro }}</p>
-            <p>Id: {{ el.id }}</p>
-            <p><b>Date: {{ el.date.date() }}</b></p>
-            <a href="/posts/{{ el.id }}" class="btn btn-warning">More</a>
+        {% if articles|length > 0 %}
+            {% for el in articles %}
+            <div class="alert-info mt-2 p-2 rounded">
+                <h2>{{ el.title }}</h2>
+                <p>{{ el.intro }}</p>
+                <p><b>Date: {{ el.date.date() }}</b></p>
+                <a href="/posts/{{ el.id }}" class="btn btn-warning">More</a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>We have no articles yet</p>
+        {% endif %}
         </div>
-        {% endfor %}
-    </div>
 {% endblock %}
