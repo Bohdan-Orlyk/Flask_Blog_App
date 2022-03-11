@@ -37,9 +37,22 @@ def posts():
 
 
 @app.route('/posts/<int:id>')
-def posts_detail(id):
+def post_detail(id):
     article = Article.query.get(id)
     return render_template('post-detail.html', article=article)
+
+
+@app.route('/posts/<int:id>/delete')
+def post_delete(id):
+    article = Article.query.get_or_404(id)
+
+    try:
+        db.session.delete(article)
+        db.session.commit()
+
+        return redirect('/posts')
+    except:
+        return "An error occurred when trying to delete article"
 
 
 @app.route('/create-article', methods=['POST', 'GET'])
